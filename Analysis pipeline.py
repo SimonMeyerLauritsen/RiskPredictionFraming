@@ -41,7 +41,7 @@ def plot_missing_values(df,fname):
     m.to_excel(fname)
     ax = m.plot(kind='barh', figsize=(5, 10), zorder=2, width=0.5)
     ax.invert_yaxis()
-    plt.savefig('Nybrud_Missing_Values.pdf', bbox_inches='tight', format='pdf', dpi=200)
+    plt.savefig('Missing_Values.pdf', bbox_inches='tight', format='pdf', dpi=200)
     plt.show()
 
 plot_missing_values(dataset_n, 'FinalDatasets\FinalResults\missing_n.xlsx')
