@@ -161,7 +161,18 @@ def train_model(x_tr, y_tr, x_t, y_t, fname, nrounds, lr, md, l, mcw):
 
 def cv_train(folds_n, fname='', nrounds=75, lr=0.15, md=7, l=8, mcw=7):
     """
-    Function to train a model for each cross-valdation folds and combine results for explanation analysis
+    Function to train a model for each cross-valdation folds and combine results for explanation analysis.
+    
+    Our strategy for hyperparameter optimization sought to increase the model’s ability to detect sepsis while 
+    avoiding unwanted errors due to amplification of random variation. Thus, the model bias - variance tradeoff 
+    was assessed empirically. High bias can cause an algorithm to miss the relevant input–output ratio (underfitting), 
+    and high variance can cause an algorithm to model the random noise in the training data rather than the intended 
+    output (overfitting). We optimized for the least complex model constructed from training data that best describes 
+    all contexts and interactions in the test data. For all the models, we performed two iterative steps on the 
+    training data: 1) adjusting the maximum tree depth, learning rate, and number of boosting rounds and 
+    2) fine-tuning with subsampling parameters and other regularization parameters, such as “gamma min_child_weight” 
+    and “gamma”. In between each iteration, the bias variance tradeoff was assessed by observing the performance 
+    in the training and test data.
 
     :param folds_n: list of folds. Each fold consist of a Pandas Dataframe (features) and a Pandas series (labels)
     :param fname: file name extension, when writing results to disk
